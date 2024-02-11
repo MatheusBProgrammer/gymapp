@@ -1,9 +1,8 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import AuthPage from "./src/screen/AuthPage";
+import AuthScreen from "./src/screens/authsession/AuthScreen";
 
 export default function App() {
-  return <AuthPage />;
+  return <AuthScreen />;
 }
 
 const styles = StyleSheet.create({
