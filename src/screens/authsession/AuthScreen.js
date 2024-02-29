@@ -7,7 +7,7 @@ function AuthScreen() {
   const [showRegisterPage, setShowRegisterPage] = useState(false);
 
   const [data, setData] = useState({
-    name: "",
+    email: "",
     password: "",
   });
   const [user, setUser] = useState({ username: "" });
@@ -20,16 +20,12 @@ function AuthScreen() {
     if (showRegisterPage) {
       await fetch("http://10.0.2.2:3333/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: "assadas@gmail.com",
-          password: "123a456789876ddaasd5432s1",
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       })
-        .then((response) => {
-          alert("sucesso ratinho");
+        .then((data) => data.json())
+        .then((data) => {
+          alert(String(data.message));
         })
 
         .catch((error) => {
@@ -39,9 +35,17 @@ function AuthScreen() {
 
       // siginup logic
     } else {
+      try {
+        await fetch("http://10.0.2.2:3333/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: data.email, password: data.password }),
+        })
+          .then((data) => data.json())
+          .then((response) => alert(response.message))
+          .catch((error) => alert("Deu erro"));
+      } catch (e) {}
     }
-    /*     setData({ name: "", password: "" });
-     */
   };
 
   const login = (name, password) => {};
@@ -58,7 +62,7 @@ function AuthScreen() {
           style={styles.formularioNome}
           placeholder="Digite o seu email"
           value={data.name}
-          onChangeText={(value) => handleChange("name", value)}
+          onChangeText={(value) => handleChange("email", value)}
         />
         <TextInput
           style={styles.formularioSenha}
