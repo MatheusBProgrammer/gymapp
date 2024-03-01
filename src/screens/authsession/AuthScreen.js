@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "./styles/AuthPageStyle";
+import { AuthContext } from "../../context/AuthContext";
 
 function AuthScreen() {
-  // Estado para controlar a exibição da página de registro ou login
+  //contexto para saber se o usuário está logado
+  const { user, setUser } = useContext(AuthContext);
+  useEffect(() => {
+    if (user) {
+    }
+  }, [user]);
+
   const [showRegisterPage, setShowRegisterPage] = useState(false);
 
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-  const [user, setUser] = useState({ username: "" });
-
   const handleChange = (key, value) => {
     setData((prevData) => ({ ...prevData, [key]: value }));
   };
@@ -42,14 +47,14 @@ function AuthScreen() {
           body: JSON.stringify({ email: data.email, password: data.password }),
         })
           .then((data) => data.json())
-          .then((response) => alert(response.message))
-          .catch((error) => alert("Deu erro"));
+          .then((response) => {
+            alert(response.message);
+            setUser(data);
+          })
+          .catch((error) => alert(`Erro: ${error}`));
       } catch (e) {}
     }
   };
-
-  const login = (name, password) => {};
-  const siginup = (name, password) => {};
 
   return (
     <View style={styles.container}>
