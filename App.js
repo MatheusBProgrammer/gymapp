@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, StatusBar, StatusBarText, View } from "react-native";
 import AuthScreen from "./src/screens/authsession/AuthScreen";
 import { AuthProvider } from "./src/context/AuthContext";
 import Home from "./src/screens/Home";
@@ -10,8 +10,9 @@ export default function App() {
 
   return (
     <AuthProvider>
+      <StatusBar />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Auth">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Auth"
             component={AuthScreen}

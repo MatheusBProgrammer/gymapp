@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#547980",
+    backgroundColor: "yellow",
     alignItems: "flex-end",
   },
   backgroundImage: {
@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 800,
     justifyContent: "flex-end",
     alignItems: "flex-end",
+    resizeMode: "cover",
   },
 
   menuContainer: { height: "60%", width: "100%" },
