@@ -2,14 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "./styles/AuthPageStyle";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigation } from "@react-navigation/native";
 
 function AuthScreen() {
   //contexto para saber se o usuário está logado
   const { user, setUser } = useContext(AuthContext);
+  const navigation = useNavigation(); // Usando o hook useNavigation
   useEffect(() => {
     if (user) {
+      navigation.navigate("Home");
     }
-  }, [user]);
+  }, [user, navigation]);
 
   const [showRegisterPage, setShowRegisterPage] = useState(false);
 
@@ -41,16 +44,21 @@ function AuthScreen() {
       // siginup logic
     } else {
       try {
-        await fetch("http://10.0.2.2:3333/login", {
+        const response = await fetch("http://10.0.2.2:3333/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: data.email, password: data.password }),
         })
-          .then((data) => data.json())
           .then((response) => {
-            alert(response.message);
-            setUser(data);
+            const status = response.status;
+            return response.json().then((response) => {
+              alert(response.message);
+              if (status === 200) {
+                setUser(data);
+              }
+            });
           })
+
           .catch((error) => alert(`Erro: ${error}`));
       } catch (e) {}
     }
