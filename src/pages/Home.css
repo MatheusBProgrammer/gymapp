@@ -1,0 +1,46 @@
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #2196f3;
+  color: white;
+}
+
+.home-main {
+  padding: 16px;
+}
+
+.rotinas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.rotina-item {
+  height: 150px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  gap: 30px;
+}
+.rotina-item:hover {
+  transition: 1s;
+  transform: scale(1.03);
+}
+.home-header button {
+  background-color: white;
+  border-radius: 10px;
+  border-width: 0px;
+}
+.home-header button:hover {
+  border-radius: 5px;
+  transition: 0.1s;
+  transform: scale(1.1);
+  box-shadow: 1px 1px 10px 0.5px rgb(61, 61, 61);
+}

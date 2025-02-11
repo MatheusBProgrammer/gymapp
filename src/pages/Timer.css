@@ -1,0 +1,36 @@
+.timer-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #37474f, #607d8b);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.timer-content {
+  text-align: center;
+}
+
+.timer-content h1 {
+  font-size: 72px;
+  font-weight: bold;
+}
+
+.timer-content h2 {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.voltar-btn {
+  position: fixed;
+  bottom: 50px;
+  background: red;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+}
