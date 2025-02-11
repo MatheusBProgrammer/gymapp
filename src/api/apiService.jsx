@@ -1,7 +1,8 @@
 import axios from "axios";
 import { SessionManager } from "../utils/sessionManager";
 
-const baseUrl = "http://localhost:3000/api";
+const baseUrl =
+  "https://backend-gym-qnz2-git-main-matheusbprogrammers-projects.vercel.app";
 
 export const loginAluno = async (email, senha) => {
   const response = await axios.post(`${baseUrl}/aluno/login`, { email, senha });
