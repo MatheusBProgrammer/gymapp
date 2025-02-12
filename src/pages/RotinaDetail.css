@@ -122,7 +122,6 @@ body {
 .terminar-treino-container {
   position: fixed;
   bottom: 20px;
-  left: 50%;
   transform: translateX(-50%);
   width: 90%;
   max-width: 500px;
