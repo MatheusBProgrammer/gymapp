@@ -5,11 +5,13 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SplashAutoLogin from "./pages/SplashAutoLogin";
 import RotinaDetail from "./pages/RotinaDetail";
 import Timer from "./pages/Timer";
+
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
