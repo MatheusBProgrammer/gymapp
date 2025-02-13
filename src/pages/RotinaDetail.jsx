@@ -5,6 +5,19 @@ import { GrReturn } from "react-icons/gr";
 import { motion } from "framer-motion";
 import "./RotinaDetail.css";
 
+/**
+ * Função auxiliar para converter a URL do YouTube em formato embed,
+ * caso seja um link do tipo watch?v=xyz ou youtu.be/xyz etc.
+ */
+function getYoutubeEmbedUrl(url) {
+  const regExp =
+    /^.*(?:youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return match && match[1].length === 11
+    ? `https://www.youtube.com/embed/${match[1]}`
+    : url;
+}
+
 const RotinaDetail = () => {
   const { index } = useParams();
   const navigate = useNavigate();
@@ -58,6 +71,9 @@ const RotinaDetail = () => {
     const [phase, setPhase] = useState("ready"); // "ready" | "inProgress" | "rest"
     const [restTime, setRestTime] = useState(0);
 
+    // Estado adicional para mostrar/ocultar o vídeo
+    const [showVideo, setShowVideo] = useState(false);
+
     // Efeito para o timer de descanso (fase "rest")
     useEffect(() => {
       let timer;
@@ -104,6 +120,46 @@ const RotinaDetail = () => {
           Série {currentSet} de {totalSets}
         </p>
         <p>Repetições: {exercise.repeticoes}</p>
+
+        {/* Se houver videoUrl, exibir botões para abrir/fechar vídeo */}
+        {exercise.videoUrl && (
+          <div style={{ marginBottom: "1rem" }}>
+            {!showVideo ? (
+              <motion.button
+                className="modal-btn"
+                onClick={() => setShowVideo(true)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Ver Vídeo
+              </motion.button>
+            ) : (
+              <>
+                <div className="video-container" style={{ margin: "1rem 0" }}>
+                  <iframe
+                    width="560"
+                    height="315"
+                    src={getYoutubeEmbedUrl(exercise.videoUrl)}
+                    title="Exemplo de Exercício"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <motion.button
+                  className="modal-btn"
+                  onClick={() => setShowVideo(false)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Fechar Vídeo
+                </motion.button>
+              </>
+            )}
+          </div>
+        )}
+
+        {/* Botões de controle de série/descanso */}
         {phase === "ready" && (
           <motion.button
             className="modal-btn"
@@ -129,6 +185,8 @@ const RotinaDetail = () => {
             <h2>Descanso: {restTime}s</h2>
           </div>
         )}
+
+        {/* Botão para cancelar o modal e não considerar o exercício concluído */}
         <motion.button
           className="modal-cancel-btn"
           onClick={() => onClose(false)}
